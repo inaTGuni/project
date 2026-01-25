@@ -77,23 +77,31 @@
         margin-bottom: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         transition: transform 0.3s;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.90);
+        text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        position: relative;
     }
 
     .card:hover {
         transform: translateY(-5px);
     }
+    
+    .author-name {
+        font-size: 0.85em;
+        opacity: 0.8;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
 
     .data-text {
-        font-size: 1.1em;
-        margin-bottom: 10px;
-        color: #ffffff;
+        font-size: 1.3em;
+        margin-bottom: 15px;
         white-space: pre-wrap;
+        font-weight: 500;
     }
 
     .datetime {
-        font-size: 0.85em;
-        color: #ffffff;
+        font-size: 0.75em;
+        opacity: 0.7;
         text-align: right;
     }
 
@@ -121,16 +129,26 @@
         <a href="./Details">まだ記事を書く</a>
     </div>
 
-    <% for (MyData md : mdList) { %>
-    <div class="card" style="background-color: <%= md.getColor() %>;">
-        <div class="data-text">
-            <%= md.getData() %>
+    <% if(mdList != null) { %>
+        <% for (MyData md : mdList) { %>
+        <div class="card" style="background-color: <%= md.getColor() %>; color: <%= md.getTextColor() != null ? md.getTextColor() : "#ffffff" %>;">
+            
+            <div class="author-name">
+                タイトル：<%= md.getName() != null ? md.getName() : "匿名" %>
+            </div>
+
+            <div class="data-text">
+                <%= md.getData() %>
+            </div>
+            
+            <div class="datetime">
+                登録日時：<%= sdf.format(md.getEntryDatetime()) %>
+            </div>
         </div>
-        <div class="datetime">
-            登録日時：<%= sdf.format(md.getEntryDatetime()) %>
-        </div>
-    </div>
-<% } %>
+        <% } %>
+    <% } else { %>
+        <p style="text-align:center;">記事がまだありません。</p>
+    <% } %>
 
 </div>
 

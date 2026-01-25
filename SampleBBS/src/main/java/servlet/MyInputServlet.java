@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,22 +47,19 @@ public class MyInputServlet extends HttpServlet {
 				
 				//コンソールにdataを表示
 				System.out.println("年/月/日　　　　："+ date);
+				Timestamp now = new Timestamp(System.currentTimeMillis());
+				if(date == "") {
+					date = now.toString();
+				}
+				String name = request.getParameter("name");
+				String textColor = request.getParameter("textColor");
+				
+				System.out.println("ニックネーム　　：" + name);
+				System.out.println("文字色　　　　　：" + textColor);
 				
 				//requestから，"id"というnameの値を取得
 				String radio1 = request.getParameter("radio1");
 				
-				//コンソールにdataを表示
-				System.out.println("ラジオボタン１　"+ radio1);
-				//requestから，"id"というnameの値を取得
-				String radio2 = request.getParameter("radio2");
-				
-				//コンソールにdataを表示
-				System.out.println("ラジオボタン２　"+ radio2);
-				//requestから，"id"というnameの値を取得
-				String radio3 = request.getParameter("radio3");
-				
-				//コンソールにdataを表示
-				System.out.println("ラジオボタン３　"+ radio3);
 				
 				
 				System.out.println("\n");
@@ -92,7 +90,7 @@ public class MyInputServlet extends HttpServlet {
 				
 			      
 //			       Dao dao = new Dao();
-			       dao.insertMyData(data,color);
+			       dao.insertMyData(data,color,date, name, textColor);
 			       
 			    // ★ ここが重要 ★
 			       request.getRequestDispatcher("/MyDataListServlet")

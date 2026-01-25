@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,8 +32,17 @@ public class MyDataListServlet extends HttpServlet {
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			//DBアクセスのためのクラスをインスタンス化
 			Dao dao = new Dao();
+			
+			//時間経過してない記事を表示させない
+			Timestamp now = new Timestamp(System.currentTimeMillis());
 			//すべてのMyDataのリストを取得．NyDataクラスはbeansパッケージに宣言してある．
 			List<MyData> mdList = dao.getMyDataList();
+			for(int i = mdList.size()-1; i>=0; i--){
+				System.out.println(now +"/" + mdList.get(i).getBooking() + "/"+mdList.get(i).getBooking().before(now));
+				if(mdList.get(i).getBooking().after(now)) {
+					mdList.remove(i);
+				}
+			}
 
 			//requestに記事リストを格納．
 			request.setAttribute("mdList" , mdList);

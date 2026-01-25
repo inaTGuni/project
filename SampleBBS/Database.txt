@@ -35,6 +35,16 @@ name text not null,
 entry_datetime datetime not null
 );
 
+create table mydata(
+id int primary key auto_increment,
+data text not null,
+color text not null,
+entry_datetime datetime not null,
+booking datetime not null,
+name text not null,
+text_color text not null
+);
+
 #テーブル作成
 create table article(
 id int primary key auto_increment,

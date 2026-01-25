@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -66,6 +67,28 @@
         transform: scale(1.05);
         opacity: 0.9;
     }
+    
+    /* フォーム周りのスタイル調整 */
+    #form {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .mail {
+        margin-bottom: 15px;
+    }
+    input[type="text"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 60%;
+    }
+    input[type="color"] {
+        border: none;
+        width: 50px;
+        height: 30px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
 </style>
 </head>
 
@@ -74,24 +97,27 @@
     <div class="card">
          <div id="form">
     
-	<p class="form-title" >記事を書こう</p>
+	<h1 class="form-title">記事を書こう</h1>
 	
 	<form action="./MyInputServlet" method="post">
-		<p class="mail"><label>書き入れる文字（２０文字）：<input type="text" name="data" size="30" maxlength="20"></label></p>
-		<p class="mail"><label>記事の背景：<input type="color" name="color" size="30" maxlength="20"></label></p>
-<!--		<p class="mail"><label>年/月/日：<input type="date" name="date" size="30" maxlength="20"></label></p>-->
-<!--		<p class="mail"><label>ラジオボタン1：<input type="radio" name="radio1" size="30" maxlength="20"></label></p>-->
-<!--		<p class="mail"><label>ラジオボタン2：<input type="radio" name="radio2" size="30" maxlength="20"></label></p>-->
-<!--		<p class="mail"><label>ラジオボタン3：<input type="radio" name="radio3" size="30" maxlength="20"></label></p>-->
+		<p class="mail"><label>記事のタイトル：<br><input type="text" name="name" maxlength="20" placeholder="タイトルを入力"></label></p>
+
+		<p class="mail"><label>書き入れる文字（２０文字）：<br><input type="text" name="data" maxlength="20" placeholder="メッセージを入力"></label></p>
 		
-		<p class="mail"><input type="reset" name="reset" size="30" maxlength="20"class="button"></label></p>
+		<p class="mail"><label>記事の背景色：<input type="color" name="color" value="#ffffff"></label></p>
+		
+		<p class="mail"><label>文字の色：　<input type="color" name="textColor" value="#000000"></label></p>
+		
+		<p class="mail"><label>投稿予約（指定しない場合はすぐに掲載されます）：<input type="datetime-local" name="date" size="30" maxlength="20"></label></p>
+		
+		<p class="mail"><input type="reset" value="リセット" class="button" style="background: #ccc; width: 100px; display:inline-block; margin: 10px;"></p>
 		
 		<p class="submit"><input type="submit" value="送信" class="button"></p>
 	</form>
 	
 	</div>
 
-       <a href="<%= request.getContextPath() %>/MyDataListServlet" class="button">記事を見る</a>
+       <a href="<%= request.getContextPath() %>/MyDataListServlet" class="button" style="background: #777;">記事を見る</a>
 
     </div>
 
